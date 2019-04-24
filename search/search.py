@@ -92,29 +92,33 @@ def depthFirstSearch(problem):
     Start's successors: [((5, 4), 'South', 1), ((4, 5), 'West', 1)]
     """
     "*** YOUR CODE HERE ***"
-
+    
     stack = util.Stack()
     visited = []
     actions = []
     state = problem.getStartState()
-    stack.push((state, 'Stop',0))
-    actions.append((state, 'Stop',0))
-    visited.append((state, 'Stop',0))
+    visited.append(state)
+    stack.push((state, 'Stop', 0))
+    actions.append((state, 'Stop', 0))
     while not stack.isEmpty():
-      if problem.isGoalState(state):
+      if problem.isGoalState(state):     
+        for action in actions:
+          print action
         return [action[1] for action in actions]
       else:
         scsrs = problem.getSuccessors(state)
         for scsr in scsrs:
           if scsr[0] not in visited:
             visited.append(scsr[0])
-            stack.push(scsr)
             actions.append(scsr)
+            stack.push(scsr)
             break
-        state = actions[-1][0]
-        pop = stack.pop()
-        print pop
-
+        else:
+          state = actions[-1][0]
+          actions.pop()
+          stack.pop()
+      
+    util.raiseNotDefined()
     return False
 
 def breadthFirstSearch(problem):
@@ -123,25 +127,7 @@ def breadthFirstSearch(problem):
     
     Q = util.Queue()
     visited = []
-    actions = []
-    state = problem.getStartState()
-    Q.push((state, 'Stop',1))
-    actions.append((state, 'Stop',1))
-    while not Q.isEmpty():
-      if problem.isGoalState(state):
-        return [action[1] for action in actions]
-      else:
-        scsrs = problem.getSuccessors(state)
-        for scsr in scsrs:
-          if scsr[0] not in visited:
-            visited.append(scsr[0])
-            Q.push(scsr)
-            actions.append(scsr)
-            break
-        state = actions[-1][0]
-        Q.pop()
-    util.raiseNotDefined()
-    return False
+    
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
