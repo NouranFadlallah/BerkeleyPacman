@@ -112,11 +112,12 @@ def depthFirstSearch(problem):
             visited.append(scsr[0])
             actions.append(scsr)
             stack.push(scsr)
+            state = scsr[0]
             break
         else:
-          state = actions[-1][0]
           actions.pop()
           stack.pop()
+          state = actions[-1][0]
       
     util.raiseNotDefined()
     return False
